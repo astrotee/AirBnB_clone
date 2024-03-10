@@ -32,7 +32,7 @@ class BaseModel:
 
     def to_dict(self):
         """a dictionary representation of instance"""
-        d = self.__dict__
+        d = self.__dict__.copy()
         d.update(__class__=self.__class__.__name__)
         d.update(created_at=self.created_at.isoformat())
         d.update(updated_at=self.updated_at.isoformat())
