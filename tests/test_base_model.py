@@ -17,3 +17,9 @@ class TestBaseModel(unittest.TestCase):
         self.b1.save()
         t2 = self.b1.updated_at
         self.assertNotEqual(t1, t2)
+
+    def test_kwargs(self):
+        """test init with kwargs"""
+        t1 = self.b1
+        t2 = BaseModel(**t1.to_dict())
+        self.assertEqual(t1.to_dict(), t2.to_dict())

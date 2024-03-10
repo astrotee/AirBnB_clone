@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """base model"""
 import uuid
-import datetime
+from datetime import datetime
 
 
 class BaseModel:
@@ -10,17 +10,14 @@ class BaseModel:
     def __init__(self, *args, **kwargs) -> None:
         """initialize an instance"""
         if kwargs:
-            d = kwargs
-            d.pop("__class__")
-            if "created_at" in d:
-                d["created_at"] = datetime.datetime.fromisoformat(d.created_at)
-            if "updated_at" in d:
-                d["updated_at"] = datetime.datetime.fromisoformat(d.updated_at)
-            self.__dict__.update(d)
+            kwargs.pop("__class__")
+            kwargs["created_at"] = datetime.fromisoformat(kwargs["created_at"])
+            kwargs["updated_at"] = datetime.fromisoformat(kwargs["updated_at"])
+            self.__dict__.update(kwargs)
         else:
             self.id = str(uuid.uuid4())
-            self.created_at = datetime.datetime.now()
-            self.updated_at = datetime.datetime.now()
+            self.created_at = datetime.now()
+            self.updated_at = datetime.now()
 
     def __str__(self) -> str:
         """a string representation of instance"""
@@ -28,7 +25,7 @@ class BaseModel:
 
     def save(self):
         """update instance"""
-        self.updated_at = datetime.datetime.now()
+        self.updated_at = datetime.now()
 
     def to_dict(self):
         """a dictionary representation of instance"""
