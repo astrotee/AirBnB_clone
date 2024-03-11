@@ -18,6 +18,10 @@ class FileStorage:
         d = obj.to_dict()
         self.__objects[f"{d['__class__']}.{d['id']}"] = d
 
+    def remove(self, model, id):
+        """remove an object"""
+        del self.__objects[f"{model}.{id}"]
+
     def save(self):
         """save __objects to __file_path"""
         with open(self.__file_path, 'w') as f:
