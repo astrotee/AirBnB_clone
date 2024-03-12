@@ -17,7 +17,7 @@ class HBNBCommand(cmd.Cmd):
             return
         model = args[0]
         if model == 'BaseModel':
-            obj = BaseModel()
+            obj = eval("{}".format(args[0]))
             obj.save()
             print(obj.id)
         else:

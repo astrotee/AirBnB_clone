@@ -3,10 +3,11 @@
 Class user
 """
 from models.base_model import BaseModel
+import json
 
 
 class User(BaseModel):
-    """Class User"""
+    """model class"""
     email = ""
     password = ""
     first_name = ""
