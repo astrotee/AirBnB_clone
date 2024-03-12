@@ -3,7 +3,6 @@
 import cmd
 from models.base_model import BaseModel
 from models import storage
-from models.user import User
 
 
 class HBNBCommand(cmd.Cmd):
@@ -18,8 +17,8 @@ class HBNBCommand(cmd.Cmd):
             return
         model = args[0]
         if model == 'BaseModel':
-            obj = eval(f"{args[0]}()")
-            storage.save()
+            obj = BaseModel()
+            obj.save()
             print(obj.id)
         else:
             print("** class doesn't exist **")
