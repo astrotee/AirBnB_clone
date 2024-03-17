@@ -30,15 +30,13 @@ body div.container section.filters div.amenities {
     height: 100%;
     width: 25%;
     display: inline-block;
-    flex-direction: column;
-    justify-content: center;
-    padding-left: 40px;
 }
 
 body div.container section.filters div.locations h3,
 body div.container section.filters div.amenities h3 {
     margin: 15px 0 0;
     font-weight: 600;
+    padding-left: 40px;
 }
 
 body div.container section.filters div.locations h4,
@@ -46,6 +44,7 @@ body div.container section.filters div.amenities h4 {
     margin: 0;
     font-weight: 400;
     font-size: 14px;
+    padding-left: 40px;
 }
 
 body div.container section.filters div.locations {
@@ -61,8 +60,11 @@ body div.container section.filters div.amenities ul.popover {
     border: 1px solid #DDDDDD;
     border-radius: 4px;
     list-style-type: none;
+    top: 70px;
     margin: 0;
-    padding: 0;
+    padding-top: 20px;
+    padding-left: 20px;
+    box-sizing: border-box;
 }
 
 body div.container section.filters div.locations ul,

@@ -29,16 +29,14 @@ body div.container section.filters div.locations,
 body div.container section.filters div.amenities {
     height: 100%;
     width: 25%;
-    display: inline-flex;
-    flex-direction: column;
-    justify-content: center;
-    padding-left: 40px;
+    display: inline-block;
 }
 
 body div.container section.filters div.locations h3,
 body div.container section.filters div.amenities h3 {
-    margin: 0;
+    margin: 15px 0 0;
     font-weight: 600;
+    padding-left: 40px;
 }
 
 body div.container section.filters div.locations h4,
@@ -46,6 +44,7 @@ body div.container section.filters div.amenities h4 {
     margin: 0;
     font-weight: 400;
     font-size: 14px;
+    padding-left: 40px;
 }
 
 body div.container section.filters div.locations {
