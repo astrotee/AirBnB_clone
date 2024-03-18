@@ -65,6 +65,7 @@ body div.container section.filters div.amenities ul.popover {
     padding-top: 20px;
     padding-left: 20px;
     box-sizing: border-box;
+    z-index: 1;
 }
 
 body div.container section.filters div.locations ul,
