@@ -2,7 +2,7 @@
 """base model"""
 import uuid
 from datetime import datetime
-from models import storage
+import models
 
 
 class BaseModel:
@@ -10,16 +10,16 @@ class BaseModel:
 
     def __init__(self, *args, **kwargs) -> None:
         """initialize an instance"""
+        self.id = str(uuid.uuid4())
+        self.created_at = datetime.now()
+        self.updated_at = datetime.now()
         if kwargs:
             kwargs.pop("__class__")
             kwargs["created_at"] = datetime.fromisoformat(kwargs["created_at"])
             kwargs["updated_at"] = datetime.fromisoformat(kwargs["updated_at"])
             self.__dict__.update(kwargs)
         else:
-            self.id = str(uuid.uuid4())
-            self.created_at = datetime.now()
-            self.updated_at = datetime.now()
-            storage.new(self)
+            models.storage.new(self)
 
     def __str__(self) -> str:
         """a string representation of instance"""
@@ -28,7 +28,7 @@ class BaseModel:
     def save(self):
         """update instance"""
         self.updated_at = datetime.now()
-        storage.save()
+        models.storage.save()
 
     def to_dict(self):
         """a dictionary representation of instance"""

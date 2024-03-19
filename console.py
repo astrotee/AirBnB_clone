@@ -1,8 +1,23 @@
 #!/usr/bin/python3
 """console entry point"""
-import cmd
 from models.base_model import BaseModel
+from models.user import User
+from models.state import State
+from models.review import Review
+from models.place import Place
+from models.city import City
+from models.amenity import Amenity
+import cmd
 from models import storage
+
+models_map = {"BaseModel": BaseModel,
+              "User": User,
+              "State": State,
+              "Review": Review,
+              "Place": Place,
+              "City": City,
+              "Amenity": Amenity
+              }
 
 
 class HBNBCommand(cmd.Cmd):
@@ -16,8 +31,8 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
             return
         model = args[0]
-        if model == 'BaseModel':
-            obj = eval("{}()".format(args[0]))
+        if model in models_map:
+            obj = models_map[model]()
             obj.save()
             print(obj.id)
         else:
@@ -35,9 +50,9 @@ class HBNBCommand(cmd.Cmd):
         model = args[0]
         id = args[1]
         objects = storage.all()
-        if model == 'BaseModel':
+        if model in models_map:
             if f"{model}.{id}" in objects:
-                print(str(BaseModel(**objects[f"{model}.{id}"])))
+                print(str(objects[f"{model}.{id}"]))
             else:
                 print("** no instance found **")
         else:
@@ -67,12 +82,12 @@ class HBNBCommand(cmd.Cmd):
         model, id, aname, avalue = sargs
         key = f"{model}.{id}"
         objects = storage.all()
-        if model == 'BaseModel':
+        if model in models_map:
             if key in objects:
-                d = objects[key]
-                d[aname] = avalue
-                obj = BaseModel(**objects[key])
-                storage.new(obj)
+                obj = objects[key]
+                d = obj.__dict__
+                vtype = type(d[aname]) if aname in d else str
+                d[aname] = vtype(avalue)
                 storage.save()
             else:
                 print("** no instance found **")
@@ -84,17 +99,17 @@ class HBNBCommand(cmd.Cmd):
         args = args.split()
         model = args[0] if len(args) > 0 else None
         objects = storage.all()
-        if model is not None and model != 'BaseModel':
+        if model is not None and model not in models_map:
             print("** class doesn't exist **")
             return
         plist = list()
         for k, v in objects.items():
             if model is None or k.startswith(model):
-                plist.append(str(BaseModel(**v)))
+                plist.append(str(v))
         print(plist)
 
     def do_destroy(self, args):
-        """show instange of a model using class name and instance id"""
+        """remove instange of a model using class name and instance id"""
         args = args.split()
         if len(args) == 0:
             print("** class name missing **")
@@ -105,7 +120,7 @@ class HBNBCommand(cmd.Cmd):
         model = args[0]
         id = args[1]
         objects = storage.all()
-        if model == 'BaseModel':
+        if model in models_map:
             if f"{model}.{id}" in objects:
                 storage.remove(model, id)
                 storage.save()
